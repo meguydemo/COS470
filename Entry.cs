@@ -16,12 +16,9 @@ namespace Register
             return ID;
         }
 
-
-
-
         // Date & DateString information
-        public DateTime Date { get; private set; }
-        public string DateString { get; private set; }
+        public DateTime Date { get; private set; }         // -> how dates are stored in Register
+        public string DateString { get; private set; }     // -> how dates are stored in SQLite
         public void SetDate(string ds)
         {
             string[] ymd = new string[3];
@@ -54,46 +51,12 @@ namespace Register
             DateString = $"{Date.Year} {monthNames[Date.Month - 1]} {stringDay}";
         }
         
-        
-        
-        
-        
-        
-        
-      
-        
-        
-        
-        
-        
-        
+        // Attributes
         public string Memorandum { get; set; }
         public string Details { get; set; }
         public double Debit { get; set; }
         public double Credit { get; set; }
-        public double RunningBalance { get; set; }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        public double RunningBalance { get; set; }         // -> not stored in .db; used by dataGridView
 
         // IEquatable
         public bool Equals(Entry e)
@@ -102,15 +65,7 @@ namespace Register
             else return false;
         }
 
-
-
-
-
-
-
-
-
-        // IComparable
+        // IComparable; used for List.Sort()
         public int CompareTo(Entry e)
         {
             // Structure stolen directly from https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1.sort?view=net-8.0 >:)
@@ -135,29 +90,10 @@ namespace Register
             return e1.CompareTo(e2);
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         // Overrides
         public override string ToString()
         {
             return $"{DateString}:{Memorandum}. Debit:[{Debit}]. Credit[{Credit}]";
         }
-
-
-
-
-
     }
 }

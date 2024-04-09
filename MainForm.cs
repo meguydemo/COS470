@@ -325,8 +325,8 @@ namespace Register
             TargetEntry(sender, e);
         }
 
-        // Adding, removing, and modifiying entires thru UI
-        public void AddNewEntry()
+        // Adding, removing, and modifying entries thru UI
+        private void ButtonNewEntry_Click(object sender, EventArgs e)
         {
             if (TargetLedger != null && TargetLedger.TargetPage != Ledger.Summary)
             {
@@ -356,11 +356,18 @@ namespace Register
                 RefreshTargetData();
             }
         }
-        private void ButtonNewEntry_Click(object sender, EventArgs e)
+        private void ButtonModifyEntry_Click(object sender, EventArgs e)
         {
-            AddNewEntry();
+            if(TargetLedger.TargetEntry != null)
+            {
+                System.Diagnostics.Debug.WriteLine($"Modifying entry: {TargetLedger.TargetEntry}.");
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("No entry to modify.");
+            }
         }
-        private void ButtonDelete_Click(object sender, EventArgs e)
+        private void ButtonDeleteEntry_Click(object sender, EventArgs e)
         {
             if (TargetLedger.TargetEntry != null)
             {

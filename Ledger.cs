@@ -18,13 +18,17 @@ namespace Register
             // Entry validation... looks at each entry that is added to the dictionary. 
             foreach (Entry e in pageData)
             {
-                if (NewestEntry == null)
+                // If a future event has a 0 balance, it will be ignored here...
+                if (e.Debit > 0 || e.Credit > 0)
                 {
-                    NewestEntry = e; //-> if there is no NewestEntry...
-                }
-                else if (DateTime.Compare(NewestEntry.Date, e.Date) < 0)
-                {
-                    NewestEntry = e; //-> if Entry e is more recent that NewestEntry...
+                    if (NewestEntry == null)
+                    {
+                        NewestEntry = e; //-> if there is no NewestEntry...
+                    }
+                    else if (DateTime.Compare(NewestEntry.Date, e.Date) < 0)
+                    {
+                        NewestEntry = e; //-> if Entry e is more recent that NewestEntry...
+                    }
                 }
             }
 

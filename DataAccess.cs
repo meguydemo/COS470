@@ -14,6 +14,9 @@ namespace Register
     internal class DataAccess
     {
         public string ConnectionString { get; set; }
+        public Dictionary<string, List<string>> Index { get; private set; }
+        public List<Ledger> Ledgers { get; private set; }
+        private int LargestID { get; set; } // creating ids should be for DataAccess only
         public static string FormatConnectionString(string databasePath, bool newDatabaseFile)
         {
             if (newDatabaseFile)
@@ -28,27 +31,16 @@ namespace Register
         public DataAccess(string databasePath)
         {
             ConnectionString = FormatConnectionString(databasePath, false);
-            LoadLedgers(); // populates attributes Index and Ledgers
+            if(ConnectionString != null)
+            {
+                Index = GetDatabaseIndex();
+                LoadLedgers();
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("No connection string.");
+            }
         }
-        public void UpdatePath(string databasePath)
-        {
-            ConnectionString = FormatConnectionString(databasePath, false);
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        public Dictionary<string, List<string>> Index { get; private set; }
         private Dictionary<string, List<string>> GetDatabaseIndex()
         {
             List<string> unformattedTableNames = new List<string>();
@@ -79,17 +71,8 @@ namespace Register
             }
             return index;
         }
-        public List<Ledger> Ledgers { get; private set; }
-        public int LargestID { get; private set; }
         public void LoadLedgers()
         {
-            if (ConnectionString == null)
-            {
-                System.Diagnostics.Debug.WriteLine("No connection string.");
-            }
-            else
-            {
-                Index = GetDatabaseIndex();
                 Ledgers = new List<Ledger>();
                 LargestID = 0;
                 using (IDbConnection cnn = new SQLiteConnection(ConnectionString))
@@ -123,24 +106,12 @@ namespace Register
                         Ledgers.Add(newLedger);
                     }
                 }
-            }
+            
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        public void UpdatePath(string databasePath)
+        {
+            ConnectionString = FormatConnectionString(databasePath, false);
+        }
 
         private static readonly string DefaultTableCreationString = "(\"ID\" INTEGER NOT NULL, " +
                                                                      "\"Date\" TEXT NOT NULL, " +
@@ -185,6 +156,12 @@ namespace Register
                 query.ExecuteNonQuery();
             }
         }
+        public void ModifyEntry(string ledger, string page, Entry newEntry, Entry oldEntry)
+        {
+            newEntry.ID = oldEntry.ID;
+            DeleteEntry(ledger, page, newEntry.ID); // removes the original entry
+            AddEntry(ledger, page, newEntry);       // replaces it with new entry
+        }
         public void DeleteEntry(string ledger, string page, int id)
         {
 
@@ -198,24 +175,9 @@ namespace Register
             }
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         // Things that probably do not work anymore
-        public static void AddTable(string databasePath, string tableName)
+        public static void AddTable(string connectionString, string tableName)
         {
-            string connectionString = FormatConnectionString(databasePath, false);
             using (IDbConnection cnn = new SQLiteConnection(connectionString))
             {
                 // Attempt to add a new table

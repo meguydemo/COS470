@@ -35,9 +35,11 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FileNew = new System.Windows.Forms.ToolStripMenuItem();
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reportsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.massEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
@@ -50,8 +52,7 @@
             this.labelTargetEntry = new System.Windows.Forms.Label();
             this.dateTimePickerStartDate = new System.Windows.Forms.DateTimePicker();
             this.dateTimePickerEndDate = new System.Windows.Forms.DateTimePicker();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.massEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonModify = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTable)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -129,6 +130,13 @@
             this.loadToolStripMenuItem.Text = "Load";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_FileLoad_Clicked);
             // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(125, 26);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_FileExit_Click);
+            // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
@@ -138,7 +146,7 @@
             // viewToolStripMenuItem
             // 
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(55, 26);
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
             this.viewToolStripMenuItem.Text = "View";
             // 
             // reportsToolStripMenuItem
@@ -149,16 +157,23 @@
             this.reportsToolStripMenuItem.Size = new System.Drawing.Size(58, 24);
             this.reportsToolStripMenuItem.Text = "Tools";
             // 
+            // massEntryToolStripMenuItem
+            // 
+            this.massEntryToolStripMenuItem.Name = "massEntryToolStripMenuItem";
+            this.massEntryToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.massEntryToolStripMenuItem.Text = "Mass entry";
+            this.massEntryToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_ToolsMassEntry_Click);
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(74, 26);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(74, 24);
             this.helpToolStripMenuItem.Text = "Reports";
             // 
             // helpToolStripMenuItem1
             // 
             this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
-            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(55, 26);
+            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(55, 24);
             this.helpToolStripMenuItem1.Text = "Help";
             // 
             // openFileDialog1
@@ -195,7 +210,7 @@
             // 
             // buttonNewEntry
             // 
-            this.buttonNewEntry.Location = new System.Drawing.Point(686, 53);
+            this.buttonNewEntry.Location = new System.Drawing.Point(605, 53);
             this.buttonNewEntry.Name = "buttonNewEntry";
             this.buttonNewEntry.Size = new System.Drawing.Size(75, 23);
             this.buttonNewEntry.TabIndex = 7;
@@ -205,13 +220,13 @@
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Location = new System.Drawing.Point(767, 53);
+            this.buttonDelete.Location = new System.Drawing.Point(767, 52);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(75, 23);
             this.buttonDelete.TabIndex = 8;
             this.buttonDelete.Text = "Delete";
             this.buttonDelete.UseVisualStyleBackColor = true;
-            this.buttonDelete.Click += new System.EventHandler(this.ButtonDelete_Click);
+            this.buttonDelete.Click += new System.EventHandler(this.ButtonDeleteEntry_Click);
             // 
             // labelTargetEntry
             // 
@@ -238,25 +253,22 @@
             this.dateTimePickerEndDate.TabIndex = 11;
             this.dateTimePickerEndDate.ValueChanged += new System.EventHandler(this.DateTimePickerEndDate_ValueChanged);
             // 
-            // exitToolStripMenuItem
+            // buttonModify
             // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_FileExit_Click);
-            // 
-            // massEntryToolStripMenuItem
-            // 
-            this.massEntryToolStripMenuItem.Name = "massEntryToolStripMenuItem";
-            this.massEntryToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.massEntryToolStripMenuItem.Text = "Mass entry";
-            this.massEntryToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_ToolsMassEntry_Click);
+            this.buttonModify.Location = new System.Drawing.Point(686, 52);
+            this.buttonModify.Name = "buttonModify";
+            this.buttonModify.Size = new System.Drawing.Size(75, 23);
+            this.buttonModify.TabIndex = 12;
+            this.buttonModify.Text = "Modify";
+            this.buttonModify.UseVisualStyleBackColor = true;
+            this.buttonModify.Click += new System.EventHandler(this.ButtonModifyEntry_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1057, 558);
+            this.Controls.Add(this.buttonModify);
             this.Controls.Add(this.dateTimePickerEndDate);
             this.Controls.Add(this.dateTimePickerStartDate);
             this.Controls.Add(this.labelTargetEntry);
@@ -306,6 +318,7 @@
         private System.Windows.Forms.DateTimePicker dateTimePickerEndDate;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem massEntryToolStripMenuItem;
+        private System.Windows.Forms.Button buttonModify;
     }
 }
 
