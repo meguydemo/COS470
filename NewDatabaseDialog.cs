@@ -14,7 +14,7 @@ namespace Register
     {
         public string CollectionName { get; private set; }
         public Dictionary<string, List<string>> LedgerPages = new Dictionary<string, List<string>>();
-        private Dictionary<string, int> LedgerIndex = new Dictionary<string, int>();
+        private Dictionary<string, int> TreeViewIndex = new Dictionary<string, int>();
         public NewDatabaseDialog()
         {
             InitializeComponent();
@@ -43,14 +43,14 @@ namespace Register
                     // If the list of Keys does contain the passed ledger,
                     // then append the new page to the existing node and dict key
                     LedgerPages[trimmedLedger].Add(textBoxPage.Text.Trim());
-                    treeViewLedgerPages.Nodes[0].Nodes[LedgerIndex[trimmedLedger]].Nodes.Add(trimmedPage);
+                    treeViewLedgerPages.Nodes[0].Nodes[TreeViewIndex[trimmedLedger]].Nodes.Add(trimmedPage);
                     textBoxPage.Text = string.Empty;
                 }
                 else
                 {
                     // If the list of Keys does not contain the passed ledger, 
                     // then a new ledger must be added, first to the Index...
-                    LedgerIndex.Add(trimmedLedger, LedgerIndex.Count); // 0 if first table
+                    TreeViewIndex.Add(trimmedLedger, TreeViewIndex.Count); // 0 if first table
 
                     // ...then to the dictionary
                     var l = new List<string>();
@@ -59,7 +59,7 @@ namespace Register
 
                     // Finally, update the ui
                     treeViewLedgerPages.Nodes[0].Nodes.Add(trimmedLedger);
-                    treeViewLedgerPages.Nodes[0].Nodes[LedgerIndex[trimmedLedger]].Nodes.Add(trimmedPage);
+                    treeViewLedgerPages.Nodes[0].Nodes[TreeViewIndex[trimmedLedger]].Nodes.Add(trimmedPage);
                     textBoxPage.Text = string.Empty;
                 }
             }

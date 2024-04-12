@@ -64,6 +64,13 @@ namespace Register
                     }
                 }
 
+                // Convert dialogLedgerPages from Dict<string, List<string>> to Dict<string, string[]>
+                Dictionary<string, string[]> convertedDialogLedgerPages = new Dictionary<string, string[]>();
+                foreach(var key in dialogLedgerPages.Keys)
+                {
+                    convertedDialogLedgerPages.Add(key, dialogLedgerPages[key].ToArray());
+                }
+
                 // Second, have the user specify a path for the database to be saved.
                 string directory = string.Empty;
                 using (FolderBrowserDialog dialog = new FolderBrowserDialog())
@@ -75,7 +82,7 @@ namespace Register
                 }
 
                 // Finally, pass all of the dialog information to DataAccess
-                DataAccess.CreateNewDatabase(dialogCollectionName, directory, dialogLedgerPages);
+                DataAccess.CreateNewDatabase(dialogCollectionName, directory, convertedDialogLedgerPages);
             }
         }
         private void ToolStripMenuItem_FileLoad_Clicked(object sender, EventArgs e)
